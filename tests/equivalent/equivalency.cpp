@@ -1,5 +1,6 @@
 /*
- * This is a Xoodoo implementation that protects it against fault attacks.
+ * Checks if the output of the  new implementation is equal to the original Xoodoo code.
+ * "Old-" functions are the functions that belong to the orignal Xoodoo code.
  */
 
 #include <iostream>
@@ -37,6 +38,9 @@ void initialize_state() {
 	s3 = a03 ^ a13 ^ a23;
 }
 
+/**
+* Loads state into registers
+**/
 void initialize_registers() {
 	r0 = state[0];
 	r1 = state[1];
@@ -120,25 +124,25 @@ void OldTheta() {
 	temp2 = a00 ^ a10 ^ a20;
 	temp1 = temp1 << 5 ^ temp1 << 14;
 	a00 ^= temp1;												//Calculate a00'
-	a10 ^= temp1;                           					//Calculate a10'
-	a20 ^= temp1;                         						//Calculate a20'
+	a10 ^= temp1;                       //Calculate a10'
+	a20 ^= temp1;                       //Calculate a20'
 
 	temp1 = a01 ^ a11 ^ a21;
 	temp2 = temp2 << 5 ^ temp2 << 14;
-	a01 ^= temp2; 									//Calculate a01'
-	a11 ^= temp2;								//Calculate a11'
-	a21 ^= temp2;								//Calculate a21'
+	a01 ^= temp2; 									    //Calculate a01'
+	a11 ^= temp2;								        //Calculate a11'
+	a21 ^= temp2;								        //Calculate a21'
 
 	temp2 = a02 ^ a12 ^ a22;
 	temp1 = temp1 << 5 ^ temp1 << 14;
-	a02 ^= temp1;											//Calculate a02'
-	a12 ^= temp1;											//Calculate a12'
-	a22 ^= temp1;										 //Calculate a22'
+	a02 ^= temp1;											 //Calculate a02'
+	a12 ^= temp1;											 //Calculate a12'
+	a22 ^= temp1;										   //Calculate a22'
 
 	temp2 = temp2 << 5 ^ temp2 << 14;
-	a03 ^= temp2;											//Calculate a03'
-	a13 ^= temp2;												//Calculate a13'
-	a23 ^= temp2;											//Calculate a23
+	a03 ^= temp2;											 //Calculate a03'
+	a13 ^= temp2;											 //Calculate a13'
+	a23 ^= temp2;											 //Calculate a23
 
 }
 
@@ -213,37 +217,37 @@ void Theta() {
 	v1 = v0 << 5 ^ v0 << 14;					//Calculate S of first sheet
 	r0 ^= v1;													//Calculate a00'
 	v1 = v0 << 5 ^ v0 << 14;
-	r4 ^= v1;                           						//Calculate a10'
+	r4 ^= v1;                         //Calculate a10'
 	v1 = v0 << 5 ^ v0 << 14;
-	r8 ^= v1;                           						//Calculate a20'
+	r8 ^= v1;                         //Calculate a20'
 	v1 = s0;
-	v0 = v1 ^ v0 << 5 ^ v0 << 14; 			//Calculate s0'
+	v0 = v1 ^ v0 << 5 ^ v0 << 14; 		//Calculate s0'
 	s0 = v0;
 
 	v0 = v1 << 5 ^ v1 << 14; 					//Calculate S of second sheet
-	r1 ^= v0; 													//Calculate a01'
+	r1 ^= v0; 												//Calculate a01'
 	v0 = v1 << 5 ^ v1 << 14;
 	r5 ^= v0;													//Calculate a11'
 	v0 = v1 << 5 ^ v1 << 14;
-	r9 ^= v0; 													//Calculate a21'
+	r9 ^= v0; 												//Calculate a21'
 	v0 = s1;
-	v1 = v0 ^ v1 << 5 ^ v1 << 14; 			//Calculate s1'
+	v1 = v0 ^ v1 << 5 ^ v1 << 14; 		//Calculate s1'
 	s1 = v1;
 
-	v1 = v0 << 5 ^ v0 << 14; 					//Calculate P of third sheet
-	r2 ^= v1; 													//Calculate a02'
+	v1 = v0 << 5 ^ v0 << 14; 					//Calculate S of third sheet
+	r2 ^= v1; 												//Calculate a02'
 	v1 = v0 << 5 ^ v0 << 14;
-	r6 ^= v1; 													//Calculate a12'
+	r6 ^= v1; 												//Calculate a12'
 	v1 = v0 << 5 ^ v0 << 14;
-	r10 ^= v1;												 //Calculate a22'
+	r10 ^= v1;												//Calculate a22'
 	v1 = s2;
 	v0 = v1 ^ v0 << 5 ^ v0 << 14;
 	s2 = v0;
 
-	v0 = v1 << 5 ^ v1 << 14; 					//Calculate P of fourth sheet
-	r3 ^= v0; 													//Calculate a03'
+	v0 = v1 << 5 ^ v1 << 14; 					//Calculate S of fourth sheet
+	r3 ^= v0; 												//Calculate a03'
 	v0 = v1 << 5 ^ v1 << 14;
-	r7 ^= v0; 													//Calculate a13'
+	r7 ^= v0; 												//Calculate a13'
 	v0 = v1 << 5 ^ v1 << 14;
 	r11 ^= v0; 												//Calculate a23
 	v0 = s3;
@@ -258,18 +262,18 @@ void Theta() {
 }
 
 void Rho_west() {
-	v0 ^= r4 ^ r8 ^ r5 ^ r8 << 11;  // Calculate s0'
+	v0 ^= r4 ^ r8 ^ r5 ^ r8 << 11;   //Calculate s0'
 	s0 = v0;
 
-	v1 ^= r5 ^ r9 ^ r6 ^ r9 << 11; // Calculate s1'
+	v1 ^= r5 ^ r9 ^ r6 ^ r9 << 11;   //Calculate s1'
 	s1 = v1;
 
 	v0 = s2;
-	v0 ^= r6 ^ r10 ^ r7 ^ r10 << 11; // Calculate s2'
+	v0 ^= r6 ^ r10 ^ r7 ^ r10 << 11; //Calculate s2'
 	s2 = v0;
 
 	v1 = s3;
-	v1 ^= r7 ^ r11 ^ r4 ^ r11 << 11; // Calculate s3'
+	v1 ^= r7 ^ r11 ^ r4 ^ r11 << 11; //Calculate s3'
 	s3 = v1;
 
 	//ROTL of a1to itself to calculate a1'
@@ -413,6 +417,7 @@ void single_round(uint32_t rc) {
 
 /*
  *  Compare the two implementations and check if final state is equal.
+ * This is a loop that stops when there is a state found where the outputs of the implementations are not equal.
  */
 
 int main(void) {

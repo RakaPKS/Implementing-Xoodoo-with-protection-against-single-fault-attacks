@@ -55,7 +55,7 @@ void finalize_state() {
   state[11] = a23;
 }
 
-// Assumes s0 == v0, s1 == v1
+
 void VerifyEqualsFirstHalf() {
   //Verifies if the first sheet of parity is equal to the sum of the first sheet
   if (s0 != (a00^ a10 ^ a20)) {
@@ -69,7 +69,6 @@ void VerifyEqualsFirstHalf() {
   }
 }
 
-//Assumes s2 == v0, s3 == v1
 void VerifyEqualsSecondHalf() {
   //Verifies if the third sheet of parity is equal to the sum of the third sheet
   if (s2!= (a02 ^ a12 ^a22)) {
@@ -85,28 +84,28 @@ void VerifyEqualsSecondHalf() {
 
 void Theta() {
   a00^= s3 << 5 ^ s3 << 14;												//Calculate a00'
-  a10 ^= s3 << 5 ^ s3 << 14;                           					//Calculate a10'
-  a20 ^= s3 << 5 ^ s3 << 14;                          						//Calculate a20'
+  a10 ^= s3 << 5 ^ s3 << 14;                      //Calculate a10'
+  a20 ^= s3 << 5 ^ s3 << 14;                      //Calculate a20'
   temp1 = s0;
   s0 ^= s3 << 5 ^ s3 << 14; 											//Calculate s0'
 
-  a01 ^=	 temp1 << 5 ^ temp1<< 14; 									//Calculate a01'
+  a01 ^=	 temp1 << 5 ^ temp1<< 14; 							//Calculate a01'
   a11 ^= 	 temp1<< 5 ^ temp1<< 14; 								//Calculate a11'
-  a21 ^= 	 temp1<< 5 ^ temp1 << 14; 								//Calculate a21'
+  a21 ^= 	 temp1<< 5 ^ temp1 << 14; 							//Calculate a21'
   temp2= s1;
-  s1 ^= temp1 << 5 ^ temp1 << 14; 											//Calculate s1'
+  s1 ^= temp1 << 5 ^ temp1 << 14; 								//Calculate s1'
 
-  a02 ^= temp2 << 5 ^ temp2 << 14; 													//Calculate a02'
-  a12 ^= temp2 << 5 ^ temp2 << 14; 													//Calculate a12'
-  a22 ^= temp2 << 5 ^ temp2 << 14;												 //Calculate a22'
+  a02 ^= temp2 << 5 ^ temp2 << 14; 								//Calculate a02'
+  a12 ^= temp2 << 5 ^ temp2 << 14; 								//Calculate a12'
+  a22 ^= temp2 << 5 ^ temp2 << 14;								//Calculate a22'
   temp1 = s2;
-  s2 ^= temp2 << 5 ^ temp2 << 14;  												//calulate s2'
+  s2 ^= temp2 << 5 ^ temp2 << 14;  								//Calculate s2'
 
 
-  a03 ^= temp1 << 5 ^ temp1<< 14; 													//Calculate a03'
-  a13 ^=  temp1 << 5 ^ temp1<< 14; 													//Calculate a13'
-  a23 ^=  temp1 << 5 ^ temp1<< 14; 												//Calculate a23
-  s3 ^= temp1 << 5 ^ temp1<< 14;														//Calculate s3'
+  a03 ^= temp1 << 5 ^ temp1<< 14; 								//Calculate a03'
+  a13 ^=  temp1 << 5 ^ temp1<< 14; 								//Calculate a13'
+  a23 ^=  temp1 << 5 ^ temp1<< 14; 								//Calculate a23
+  s3 ^= temp1 << 5 ^ temp1<< 14;									//Calculate s3'
 
   VerifyEqualsSecondHalf();
   VerifyEqualsFirstHalf();
@@ -114,7 +113,7 @@ void Theta() {
 }
 
 void Rho_west() {
-  s0  ^= a10 ^ a20 ^ a11 ^ a20<<11; //Calculate s0'
+  s0  ^= a10 ^ a20 ^ a11 ^ a20<<11;  //Calculate s0'
   s1 ^= a11 ^ a21 ^ a12 ^ a21 << 11; // Calculate s1'
   s2 ^= a12 ^ a22 ^ a13 ^ a22 << 11; // Calculate s2'
   s3 ^= a13 ^ a23 ^ a10 ^ a23 << 11; // Calculate s3'
@@ -270,7 +269,7 @@ void twelve_rounds(uint32_t state[12]) {
   finalize_state();
 
 }
-
+/*
  *  Main generates a random state and runs single_round() six_rounds() and twelve_rounds sequentially. The output gets printed .
  */
 
